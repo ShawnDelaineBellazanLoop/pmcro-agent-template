@@ -1,0 +1,12 @@
+{
+  "cycle_id": "CycleQ-{timestamp}",
+  "loop": 1,
+  "o_mode": "DIRECT",
+  "routed_to": "planner",
+  "reason": "ORC-001 — New actionable intent: routing to planner",
+  "hil_required": false,
+  "trail_written": true,
+  "earned_constraints": [],
+  "notes": [],
+  "cycle_id_self": "CycleQ-ORCHSTR-{hex8}"
+}

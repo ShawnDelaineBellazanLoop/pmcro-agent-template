@@ -1,0 +1,11 @@
+{
+  "domain": "meta-orchestration",
+  "domain_map": {
+    "planner": "Plan Routing Dispatch",
+    "maker": "Execute Routing Logic",
+    "checker": "Verify Destination Validity",
+    "reflector": "Assess Dispatch Success",
+    "hil": "Escalate to Human Supervisor",
+    "closed": "Seal Dispatch Record"
+  }
+}

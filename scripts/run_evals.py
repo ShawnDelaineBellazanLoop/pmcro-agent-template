@@ -1,14 +1,15 @@
 """
-run_evals.py — Orchestrator Evaluation Suite Runner
+run_evals.py — Engine Certification Runner (v4.4.1)
 ==================================================
-Validates the routing engine against canonical test cases.
+Validates the universal routing engine against canonical test cases.
+Compliant with EC-SYS-001 (Atomic File Output).
 """
 
 import json
 import sys
 from pathlib import Path
 
-# Setup paths
+# Setup absolute path resolution for imports
 _HERE = Path(__file__).parent.resolve()
 _ROOT = _HERE.parent
 if str(_HERE) not in sys.path:
@@ -17,27 +18,31 @@ if str(_HERE) not in sys.path:
 import route_cycle
 
 def run_suite():
+    """
+    Executes all test cases in evals/eval_cases.json and reports results.
+    """
     eval_file = _ROOT / "evals" / "eval_cases.json"
     if not eval_file.exists():
-        print(f"Error: Could not find {eval_file}")
+        print(f"Error: Certification file not found at {eval_file}")
         return
 
-    with open(eval_file, 'r') as f:
+    with open(eval_file, 'r', encoding='utf-8') as f:
         suite = json.load(f)
 
-    print(f"--- PMCR-O Eval Suite: {suite['skill']} v{suite['version_tested']} ---")
+    print(f"--- PMCR-O Certification Suite: {suite['skill']} v{suite['version_tested']} ---")
     
     passed_count = 0
-    total_count = len(suite['cases'])
+    cases = suite.get('cases', [])
+    total_count = len(cases)
 
-    for case in suite['cases']:
+    for case in cases:
         case_id = case['id']
         desc = case['description']
         payload = case['input']['payload']
-        verdicts = case['input']['governor_verdicts']
+        verdicts = case['input'].get('governor_verdicts', [])
         expected = case['expected']
 
-        # Execute routing
+        # Execute routing via the universal engine
         result = route_cycle.route(payload, verdicts)
 
         # Validate against expectations
@@ -57,9 +62,11 @@ def run_suite():
 
     print(f"\n--- Result: {passed_count}/{total_count} Passed ---")
     if passed_count == total_count:
-        print("STATUS: ORCHESTRATOR CERTIFIED ✅")
+        print("STATUS: CORE LOGIC CERTIFIED ✅")
+        sys.exit(0)
     else:
-        print("STATUS: FAILURES DETECTED ❌")
+        print("STATUS: CERTIFICATION FAILED ❌")
+        sys.exit(1)
 
 if __name__ == "__main__":
     run_suite()

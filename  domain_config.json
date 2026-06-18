@@ -1,11 +1,11 @@
 {
-  "domain": "meta-orchestration",
+  "domain": "generic-pmcro-agent",
   "domain_map": {
-    "planner": "Plan Routing Dispatch",
-    "maker": "Execute Routing Logic",
-    "checker": "Verify Destination Validity",
-    "reflector": "Assess Dispatch Success",
-    "hil": "Escalate to Human Supervisor",
-    "closed": "Seal Dispatch Record"
+    "planner": "Phase: Plan",
+    "maker": "Phase: Make",
+    "checker": "Phase: Check",
+    "reflector": "Phase: Reflect",
+    "hil": "Phase: HIL Escalation",
+    "closed": "Phase: Cycle Close"
   }
 }

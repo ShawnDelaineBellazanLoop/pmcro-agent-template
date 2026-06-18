@@ -1,11 +1,11 @@
 {
-  "domain": "generic-pmcro-agent",
+  "domain": "{{AGENT_DOMAIN}}",
   "domain_map": {
-    "planner": "Phase: Plan",
-    "maker": "Phase: Make",
-    "checker": "Phase: Check",
-    "reflector": "Phase: Reflect",
-    "hil": "Phase: HIL Escalation",
-    "closed": "Phase: Cycle Close"
+    "planner": "Bare Minimum Intent Decomposition",
+    "maker": "Atomic Output Generation",
+    "checker": "Structural Integrity Verification",
+    "reflector": "Efficiency & Compliance Review",
+    "hil": "Escalate to Human Supervisor",
+    "closed": "Seal Cognitive Trail"
   }
 }

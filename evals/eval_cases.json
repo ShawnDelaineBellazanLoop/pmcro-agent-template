@@ -1,68 +1,130 @@
 {
-  "skill": "orchestrator-agent",
-  "version_tested": "4.1.0",
+  "skill": "universal-pmcro-agent",
+  "version_tested": "4.4.1",
   "how_to_run": "For each case, call scripts/route_cycle.py:route(payload, governor_verdicts) and diff the result against `expected`.",
   "cases": [
     {
       "id": "orc-eval-001",
       "description": "Fresh intent at init phase routes to planner in DIRECT mode.",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL001", "loop": 1, "max_loops": 3, "current_phase": "init" },
-        "governor_verdicts": ["APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL001",
+          "loop": 1,
+          "max_loops": 3,
+          "current_phase": "init"
+        },
+        "governor_verdicts": [ "APPROVE" ]
       },
-      "expected": { "routed_to": "planner", "o_mode": "DIRECT", "hil_required": false }
+      "expected": {
+        "routed_to": "planner",
+        "o_mode": "DIRECT",
+        "hil_required": false
+      }
     },
     {
       "id": "orc-eval-002",
       "description": "loop == max_loops with reflector_verdict RETRY escalates to HIL instead of looping again (ORC-007).",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL002", "loop": 3, "max_loops": 3, "current_phase": "checker", "reflector_verdict": "RETRY" },
-        "governor_verdicts": ["APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL002",
+          "loop": 3,
+          "max_loops": 3,
+          "current_phase": "checker",
+          "reflector_verdict": "RETRY"
+        },
+        "governor_verdicts": [ "APPROVE" ]
       },
-      "expected": { "routed_to": "hil", "hil_required": true }
+      "expected": {
+        "routed_to": "hil",
+        "hil_required": true
+      }
     },
     {
       "id": "orc-eval-003",
       "description": "A governance verdict of BLOCK halts routing to HIL regardless of phase or loop (ORC-010).",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL003", "loop": 1, "max_loops": 3, "current_phase": "planner" },
-        "governor_verdicts": ["APPROVE", "BLOCK", "APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL003",
+          "loop": 1,
+          "max_loops": 3,
+          "current_phase": "planner"
+        },
+        "governor_verdicts": [ "APPROVE", "BLOCK", "APPROVE" ]
       },
-      "expected": { "routed_to": "hil", "hil_required": true }
+      "expected": {
+        "routed_to": "hil",
+        "hil_required": true
+      }
     },
     {
       "id": "orc-eval-004",
       "description": "TYPE 1 action requested without a valid hil_token routes to HIL (ORC-018), even with clean governance.",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL004", "loop": 1, "max_loops": 3, "current_phase": "maker", "type1_action_requested": true, "hil_token": null },
-        "governor_verdicts": ["APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL004",
+          "loop": 1,
+          "max_loops": 3,
+          "current_phase": "maker",
+          "type1_action_requested": true,
+          "hil_token": null
+        },
+        "governor_verdicts": [ "APPROVE" ]
       },
-      "expected": { "routed_to": "hil", "hil_required": true }
+      "expected": {
+        "routed_to": "hil",
+        "hil_required": true
+      }
     },
     {
       "id": "orc-eval-005",
       "description": "reflector_verdict ACCEPT closes the cycle.",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL005", "loop": 1, "max_loops": 3, "current_phase": "reflector", "reflector_verdict": "ACCEPT" },
-        "governor_verdicts": ["APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL005",
+          "loop": 1,
+          "max_loops": 3,
+          "current_phase": "reflector",
+          "reflector_verdict": "ACCEPT"
+        },
+        "governor_verdicts": [ "APPROVE" ]
       },
-      "expected": { "routed_to": "closed", "hil_required": false }
+      "expected": {
+        "routed_to": "closed",
+        "hil_required": false
+      }
     },
     {
       "id": "orc-eval-006",
       "description": "reflector_verdict RETRY within budget re-enters planner, loop increments, and suggest_o_mode is honored (ORC-022).",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL006", "loop": 1, "max_loops": 3, "current_phase": "reflector", "reflector_verdict": "RETRY", "suggest_o_mode": "REFLECTIVE" },
-        "governor_verdicts": ["APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL006",
+          "loop": 1,
+          "max_loops": 3,
+          "current_phase": "reflector",
+          "reflector_verdict": "RETRY",
+          "suggest_o_mode": "REFLECTIVE"
+        },
+        "governor_verdicts": [ "APPROVE" ]
       },
-      "expected": { "routed_to": "planner", "o_mode": "REFLECTIVE", "loop": 2 }
+      "expected": {
+        "routed_to": "planner",
+        "o_mode": "REFLECTIVE",
+        "loop": 2
+      }
     },
     {
       "id": "orc-eval-007",
       "description": "Sequential phase routing advances maker to checker when no reflector_verdict is present yet.",
       "input": {
-        "payload": { "cycle_id": "CycleQ-EVAL007", "loop": 1, "max_loops": 3, "current_phase": "maker", "reflector_verdict": null },
-        "governor_verdicts": ["APPROVE"]
+        "payload": {
+          "cycle_id": "CycleQ-EVAL007",
+          "loop": 1,
+          "max_loops": 3,
+          "current_phase": "maker",
+          "reflector_verdict": null
+        },
+        "governor_verdicts": [ "APPROVE" ]
       },
       "expected": { "routed_to": "checker" }
     }

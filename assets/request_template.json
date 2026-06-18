@@ -1,6 +1,6 @@
 {
-  "intent": "REPLACE: raw user or system intent",
-  "cycle_id": "CycleQ-20260618-TEMP",
+  "intent": "REPLACE: specific agent intent",
+  "cycle_id": "CycleQ-TEMP-{{timestamp}}",
   "loop": 1,
   "max_loops": 3,
   "current_phase": "init",
@@ -8,12 +8,6 @@
   "type1_action_requested": false,
   "hil_token": null,
   "constraints_active": [],
-  "domain_map": {
-    "planner": "Plan Action",
-    "maker": "Execute Task",
-    "checker": "Verify Success",
-    "reflector": "Review Outcome",
-    "hil": "Escalate to Human"
-  },
+  "domain_map": null,
   "context": {}
 }

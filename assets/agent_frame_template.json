@@ -1,0 +1,13 @@
+{
+  "cycle_id": "CycleQ-{{timestamp}}",
+  "loop": 1,
+  "o_mode": "DIRECT",
+  "routed_to": "planner",
+  "domain_action": "Bare Minimum Intent Decomposition",
+  "reason": "ORC-001 — New actionable intent detected; routing to initial phase.",
+  "hil_required": false,
+  "trail_written": true,
+  "earned_constraints": [],
+  "notes": [],
+  "cycle_id_self": "CycleQ-AGENT-{{hex8}}"
+}

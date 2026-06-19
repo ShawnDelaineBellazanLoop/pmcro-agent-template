@@ -1,7 +1,8 @@
 {
   "cycle_id": "CycleQ-{{timestamp}}",
   "loop": 1,
-  "o_mode": "DIRECT",
+  "o_mode": "OUTPUT",
+  "cycle_policy": "DIRECT",
   "routed_to": "planner",
   "domain_action": "Bare Minimum Intent Decomposition",
   "reason": "ORC-001 — New actionable intent detected; routing to initial phase.",

@@ -5,6 +5,8 @@
   "max_loops": 3,
   "current_phase": "init",
   "reflector_verdict": null,
+  "o_mode": "OUTPUT",
+  "cycle_policy": "ITERATIVE",
   "type1_action_requested": false,
   "hil_token": null,
   "constraints_active": [],
